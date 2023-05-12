@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Giriş Sayfası</title>
+  </head>
+  <body>
+    <h1>Giriş Sayfası</h1>
+    <form id="login-form">
+      <div>
+        <label for="username">Kullanıcı Adı:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div>
+        <label for="password">Şifre:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Giriş Yap</button>
+    </form>
+    <script>
+      const form = document.getElementById('login-form');
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = form.elements['username'].value;
+        const password = form.elements['password'].value;
+        // Kullanıcı adı ve şifre doğrulaması yapılacak kod burada olacak
+      });
+    </script>
+  </body>
+</html>
