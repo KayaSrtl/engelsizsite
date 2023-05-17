@@ -1,0 +1,106 @@
+<?php
+  session_start();
+
+  // Oturum başlat
+  $_SESSION["admin_logged_in"] = true;
+?>
+<!--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-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Yönetim Paneli</title>
+	<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+	<script src="https://unpkg.com/octokit@3/dist/octokit.min.js"></script>
+  </head>
+  <body>
+	<button id="logout">Çıkış Yap</button>
+    <h1>Yönetim Paneli</h1>
+    <p>Buraya yönetim paneli içeriği gelecek</p>
+  </body>
+  <script>
+	
+	$(document).ready(function(){
+		$("#logout").click(function(){
+			location.replace("../panelgiris.html");
+		});
+	});
+</script>
+
+<script>
+  // Initialize the GitHub API client
+  const octokit = new Octokit({
+    auth: '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', // Replace with your access token
+  });
+
+  // Define the repository and file details
+  const owner = 'KayaSrtl';
+  const repo = 'engelsizsite';
+  const branch = 'main';
+  const filePath = 'panel/panelsayfasi/data.txt';
+  const content = 'Hello, world!'; // The content you want to write to the file
+
+  // Function to create or update a file
+  async function createOrUpdateFile() {
+    try {
+      // Get the current commit SHA of the branch
+      const { data: { commit } } = await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
+        owner,
+        repo,
+        ref: `heads/${branch}`,
+      });
+      
+      // Get the tree SHA of the commit
+      const { data: { tree } } = await octokit.request('GET /repos/{owner}/{repo}/git/commit/{commit_sha}', {
+        owner,
+        repo,
+        commit_sha: commit.sha,
+      });
+      
+      // Create the file object
+      const file = {
+        path: filePath,
+        mode: '100644', // File mode (readable by everyone)
+        content: btoa(content), // Encode content as base64
+        type: 'blob',
+      };
+
+      // Create or update the file
+      const { data } = await octokit.request('POST /repos/{owner}/{repo}/git/trees', {
+        owner,
+        repo,
+        tree: [
+          {
+            ...file,
+            sha: null, // Null SHA creates a new file, existing SHA updates the file
+          },
+        ],
+        base_tree: tree.sha,
+      });
+
+      // Create a new commit
+      const { data: commitData } = await octokit.request('POST /repos/{owner}/{repo}/git/commits', {
+        owner,
+        repo,
+        message: 'Create new file',
+        tree: data.sha,
+        parents: [commit.sha],
+      });
+
+      // Update the branch reference
+      await octokit.request('PATCH /repos/{owner}/{repo}/git/refs/{ref}', {
+        owner,
+        repo,
+        ref: `heads/${branch}`,
+        sha: commitData.sha,
+      });
+
+      console.log('File created/updated successfully!');
+    } catch (error) {
+      console.error('Error creating/updating file:', error);
+    }
+  }
+
+  // Call the function to create/update the file
+  createOrUpdateFile();
+</script>
+</html>
