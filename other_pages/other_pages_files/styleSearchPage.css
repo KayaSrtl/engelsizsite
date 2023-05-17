@@ -93,3 +93,18 @@ html body {
 .book_not_found_txt {
 	text-align: center;
 }
+
+@media (max-width:820px) { 
+	.result_show_outer {
+		width: 100vw;
+	}
+	.result_show_inner {
+		border-radius: 10px;
+		font-size: 10px;
+	}
+	.search_name_header {
+		
+		font-size: 23px;
+	}
+}
+
