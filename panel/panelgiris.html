@@ -2,10 +2,10 @@
 <html>
   <head>
     <title>Giriş Sayfası</title>
+	<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
   </head>
   <body>
     <h1>Giriş Sayfası</h1>
-    <form id="login-form">
       <div>
         <label for="username">Kullanıcı Adı:</label>
         <input type="text" id="username" name="username" required>
@@ -14,16 +14,33 @@
         <label for="password">Şifre:</label>
         <input type="password" id="password" name="password" required>
       </div>
-      <button type="submit">Giriş Yap</button>
-    </form>
-    <script>
-      const form = document.getElementById('login-form');
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const username = form.elements['username'].value;
-        const password = form.elements['password'].value;
-        // Kullanıcı adı ve şifre doğrulaması yapılacak kod burada olacak
-      });
-    </script>
+      <button id="submit_button">Giriş Yap</button>
+	<span></span>
+	<script>
+	
+	$(document).ready(function(){
+		$("#submit_button").click(function(){
+			var acc = false;
+			if ( $( "#username" ).first().val() === "correct" ) {
+				$( "span" ).text( "Validated..." ).show();
+			} else
+			 $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+			const usernames = ["admin", "kaya"];
+			const passwords = ["admin", "kaya123"];
+			for(var i = 0; i < usernames.length; i++) {
+				if($( "#username" ).first().val() == usernames[i])
+					if($( "#password" ).first().val() == passwords[i]) {
+						location.replace("panelsayfasi/panelsayfasi.html");
+						acc = true;
+					} else {
+						alert("wrong password.");
+						return;
+						}
+			}
+			if(!acc)
+				alert("username not exist.");
+		});
+	});
+</script>
   </body>
 </html>
