@@ -39,3 +39,13 @@ $( window ).resize(function() {
 	setTimeout(function() { beReadyPage();}, 100);
 	return;
 });
+
+
+function goResultPage() {
+	//var url = window.location.href;
+	
+	url = "./other_pages/searchres.html?Search=";
+	url += $( "#search_bar_submit" ).first().val();
+	//alert(url);
+	window.location.href = url;
+}
