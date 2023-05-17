@@ -46,16 +46,33 @@ html body {
 
 .result_show_inner {
 	background: black;
+	border-radius: 30px;
+	overflow: hidden;
 }
 
-.search_result_div {
+.search_result_div_outer {
 	    height: 15vh;
     border: black 22px;
     background: #978d73;
     margin: 5px 0px;
+	display: none;
 }
 
+.search_result_div {
+	width: 100%;
+	display: flex;
+	margin: 5px 5px;
+	
+}
 
+.literature_info  {
+	width: 16.67%;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+	border: black 2px;
+	margin: 5px 5px;
+}
 
 
 
@@ -69,4 +86,10 @@ html body {
 	display: flex;
 	    align-items: center;
     justify-content: center;
+	position: fixed;
+    bottom: 0px;
+}
+
+.book_not_found_txt {
+	text-align: center;
 }
