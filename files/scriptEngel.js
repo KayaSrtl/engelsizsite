@@ -11,8 +11,12 @@ $( document ).ready(function() {
 
 
 $(document).keydown(function(e){
+	//e.preventDefault();
 	
+	//alert(e.keyCode);
 	
+	if(e.keyCode == 13)
+		goResultPage();
 });
 
 
@@ -43,9 +47,16 @@ $( window ).resize(function() {
 
 function goResultPage() {
 	//var url = window.location.href;
-	
+	var searchtemp = $( "#search_bar_submit" ).first().val();
+	if(!searchtemp)
+		return;
 	url = "./other_pages/searchres.html?Search=";
-	url += $( "#search_bar_submit" ).first().val();
+	for(var i = 0; i < searchtemp.length; i++)
+		if(searchtemp[i] == " ")
+			url += "+";
+		else
+			url += searchtemp[i];
+	//url += $( "#search_bar_submit" ).first().val();
 	//alert(url);
 	window.location.href = url;
 }
