@@ -72,3 +72,12 @@ html body {
 	display: flex;
 }
 
+@media (max-width:820px) { 
+	.search_bar {
+		    width: 60vw !important;
+			margin: 10px !important;
+	}
+	.search_button {
+		margin: 10px !important;
+	}
+}
