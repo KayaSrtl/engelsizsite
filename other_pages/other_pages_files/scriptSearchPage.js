@@ -45,6 +45,7 @@ var stringsToSearch = [
 	
 	
 	var searchResultsIndex = [];
+	var searchResultsSimilartyVal = [];
 	
 	for(var i = 0; i < objlen; i++) {
 		strings_for_search_temp = myObj[i].name;
@@ -53,11 +54,18 @@ var stringsToSearch = [
 		strings_for_search_temp += myObj[i].format;
 		strings_for_search_temp += myObj[i].subject;
 		//strings_for_search.push(strings_for_search_temp);
-		if(searchString2(search_header_text, strings_for_search_temp))
+		//console.log(searchString(search_header_text, strings_for_search_temp).found);
+		if(searchString(search_header_text, strings_for_search_temp).found) {
 			searchResultsIndex.push(i);
-			
+			searchResultsSimilartyVal.push(searchString(search_header_text, strings_for_search_temp).score);
+			//console.log(searchResultsSimilartyVal[searchResultsIndex.length-1])
+		}
 	}
-	
+	var numbers = [5, 3, 8, 2, 1, 4];
+//console.log("Before sorting:", searchResultsSimilartyVal);
+sortMirrorArr(searchResultsSimilartyVal, searchResultsIndex);
+//console.log("After sorting:", searchResultsSimilartyVal);
+//console.log("After sorting:", searchResultsIndex	);
 	
 	//console.log(searchString2("JavaSript", stringsToSearch[0]));
 	
@@ -99,7 +107,7 @@ var stringsToSearch = [
   });
 
 
-function searchString(searchTerm, strings) {
+function searchString2(searchTerm, strings) {
   var results = [];
     if (strings.toLowerCase().includes(searchTerm.toLowerCase())) {
       return true;
@@ -107,7 +115,7 @@ function searchString(searchTerm, strings) {
   return false;
 }
 
-function searchString2(searchTerm, searchString) {
+function searchString(searchTerm, searchString) {
   var options = {
     keys: ['title'], // Specify the key(s) to search in the objects
     includeScore: true, // Include the search score in the results
@@ -117,9 +125,42 @@ function searchString2(searchTerm, searchString) {
   var fuse = new Fuse([{ title: searchString }], options); // Convert the searchString into an array of objects with a 'title' key
   var results = fuse.search(searchTerm);
 
-  return results.length > 0;
+  if (results.length > 0) {
+    return {
+      found: true,
+      score: results[0].score
+    };
+  } else {
+    return {
+      found: false,
+      score: null
+    };
+  }
 }
 
+
+function sortMirrorArr(arr, mirror_arr) {
+  var len = arr.length;
+  var swapped;
+
+  do {
+    swapped = false;
+    for (var i = 0; i < len - 1; i++) {
+      if (arr[i] > arr[i + 1]) {
+        // Swap elements
+        var temp = arr[i];
+        var temp_mirr = mirror_arr[i];
+        arr[i] = arr[i + 1];
+        mirror_arr[i] = mirror_arr[i + 1];
+        arr[i + 1] = temp;
+        mirror_arr[i + 1] = temp_mirr;
+        swapped = true;
+      }
+    }
+  } while (swapped);
+
+  return temp_mirr;
+}
 
 
 $( document ).ready(function() {
