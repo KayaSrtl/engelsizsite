@@ -44,17 +44,25 @@ var stringsToSearch = [
 	var strings_for_search_temp;
 	
 	
+	var searchResultsIndex = [];
+	
 	for(var i = 0; i < objlen; i++) {
 		strings_for_search_temp = myObj[i].name;
 		strings_for_search_temp += myObj[i].writer;
 		strings_for_search_temp += myObj[i].language;
 		strings_for_search_temp += myObj[i].format;
 		strings_for_search_temp += myObj[i].subject;
-		strings_for_search.push(strings_for_search_temp);
+		//strings_for_search.push(strings_for_search_temp);
+		if(searchString2(search_header_text, strings_for_search_temp))
+			searchResultsIndex.push(i);
+			
 	}
 	
 	
-	var searchResultsIndex = searchString(search_header_text, strings_for_search);
+	//console.log(searchString2("JavaSript", stringsToSearch[0]));
+	
+	
+	
 	/*console.log("Search Results:");
 	for (var i = 0; i < searchResultsIndex.length; i++) {
 		console.log(searchResultsIndex[i]);
@@ -93,12 +101,23 @@ var stringsToSearch = [
 
 function searchString(searchTerm, strings) {
   var results = [];
-  for (var i = 0; i < strings.length; i++) {
-    if (strings[i].toLowerCase().includes(searchTerm.toLowerCase())) {
-      results.push(i);
-    }
+    if (strings.toLowerCase().includes(searchTerm.toLowerCase())) {
+      return true;
   }
-  return results;
+  return false;
+}
+
+function searchString2(searchTerm, searchString) {
+  var options = {
+    keys: ['title'], // Specify the key(s) to search in the objects
+    includeScore: true, // Include the search score in the results
+    threshold: 0.4, // Set the fuzzy search threshold (0.0 - 1.0)
+  };
+
+  var fuse = new Fuse([{ title: searchString }], options); // Convert the searchString into an array of objects with a 'title' key
+  var results = fuse.search(searchTerm);
+
+  return results.length > 0;
 }
 
 
