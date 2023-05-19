@@ -6,6 +6,35 @@ var selected_book_index = 1;
 var last_book_index = 10;
 var search_header_text = [];
 
+var Turkish_codes = ["%C3%A7", "%C3%87", "%C3%B6", "%C3%96", "%C5%9F", "%C5%9E", "%C4%B1", "%C4%B0", "%C4%9F", "%C4%9E", "%C3%BC", "%C3%9C", "%27", "%3C", "%3E", "%C2%A3", "%C2%BD", "%C3%A9"];
+var Turkish_chars = ["ç", "Ç", "ö", "Ö", "ş", "Ş", "ı", "İ", "ğ", "Ğ", "ü", "Ü", "'", "<", ">", "£", "½", "é"];
+const key = "Z2hwX1dNU0o0Y3BTc0s1UU9IZHlkMFoweGhUS2lGQmZIZzNYdEllbA==";
+
+//import data from '../panel/panelsayfasi/data.json' assert { type: 'json' };
+//console.log(data);
+
+//../panel/panelsayfasi/data.json
+
+
+var stringsToSearch = [
+  "JavaScript Basics",
+  "Advanced JavaScript Techniques",
+  "Introduction to JavaScript",
+  "JavaScript for Web Development",
+  "JavaScript Frameworks andweb Libraries"
+];
+
+
+function uploadJson(json_object) {
+	console.log(json_object);
+	uploadJSON(json_object);
+}
+
+
+
+function decodeString(encodedStr) {
+  return atob(encodedStr);
+}
 
 
 /*fetch('https://raw.githubusercontent.com/KayaSrtl/engelsizsite/main/panel/panelsayfasi/data.json')
@@ -56,13 +85,6 @@ var search_header_text = [];
 		$('#search_result_' + i).children( ".search_result_div" ).children( ".literature_link" ).attr("href", myObj[i].link);
 		
 		
-	}
-	
-	if(objlen) {
-		$(".search_result_div_outer").css('display', 'flex');
-		$(".book_not_found_txt").css('display', 'none');
-	} else {
-		$(".book_not_found_txt").text("Aranan Kitap Bulunamadı!");
 	}
 	
 	
@@ -235,7 +257,7 @@ function beReadyPage () {
 	window_height = parseInt($( window ).height());
 	window_width = parseInt($( window ).width());
 	
-	if(parseInt($( ".result_show_outer" ).height()) < window_height)
+	if(parseInt($( ".result_show_outer" ).height()) > window_height)
 		$(".copy_write").css('position', 'fixed');
 	else
 		$(".copy_write").css('position', 'relative');
@@ -249,3 +271,134 @@ $( window ).resize(function() {
 	setTimeout(function() { beReadyPage();}, 100);
 	return;
 });
+
+
+function uploadJSON(json_object) {
+  // Update the data as desired
+  /*const updatedData = {
+    someKey: 'çok seviyorum'
+  };*/
+
+  //const token = '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';
+  var token = decodeString(key);
+  const repoOwner = 'KayaSrtl';
+  const repoName = 'engelsizsite';
+  const filePath = './panel/panelsayfasi/data.json';
+
+  // Convert the updated data to JSON
+  const updatedJsonData = JSON.stringify(json_object, null, 2);
+
+  // Fetch the current file details, including SHA
+  fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    }
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to fetch file details');
+      }
+    })
+    .then((fileData) => {
+      const currentSHA = fileData.sha;
+
+      // Remove backslashes before quotes
+      const contentWithoutBackslashes = updatedJsonData.replace(/\\/g, '').replace(/^"(.*)"$/, '$1');
+
+      // Encode the JSON data to base64
+      const encoder = new TextEncoder();
+      const data = encoder.encode(contentWithoutBackslashes);
+      const contentBase64 = btoa(String.fromCharCode.apply(null, new Uint8Array(data)));
+
+      // Make an HTTP request to update the file
+      return fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: 'Update JSON file',
+          content: contentBase64,
+          sha: currentSHA
+        })
+      });
+    })
+    .then((response) => {
+      if (response.ok) {
+        console.log('JSON file updated successfully');
+      } else {
+        throw new Error('Failed to update JSON file');
+      }
+    })
+    .catch((error) => {
+      console.error('Error updating JSON file:', error.message);
+    });
+}
+
+
+
+
+var token = decodeString(key);
+const repoOwner = 'KayaSrtl';
+const repoName = 'engelsizsite';
+const filePath = 'deneme/denemee.json';
+
+
+// API endpoint for deleting a file
+const deleteFileEndpoint = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+async function getFileSHA() {
+  try {
+    const response = await fetch(deleteFileEndpoint, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'GetFileSHA'
+      }
+    });
+
+    if (response.ok) {
+      const fileData = await response.json();
+      return fileData.sha;
+    } else {
+      throw new Error(`Error getting file SHA: ${response.status} ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Delete file function
+async function deleteFile() {
+  try {
+    const fileSHA = await getFileSHA();
+
+    const response = await fetch(deleteFileEndpoint, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'DeleteFile'
+      },
+      body: JSON.stringify({
+        message: 'Delete file',
+        sha: fileSHA
+      })
+    });
+
+    if (response.ok) {
+      console.log('File deleted successfully');
+    } else {
+      const errorData = await response.json();
+      throw new Error(`Error deleting file: ${errorData.message}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
