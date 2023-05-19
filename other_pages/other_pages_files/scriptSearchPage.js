@@ -61,7 +61,7 @@ var stringsToSearch = [
 			//console.log(searchResultsSimilartyVal[searchResultsIndex.length-1])
 		}
 	}
-	var numbers = [5, 3, 8, 2, 1, 4];
+	//var numbers = [5, 3, 8, 2, 1, 4];
 //console.log("Before sorting:", searchResultsSimilartyVal);
 sortMirrorArr(searchResultsSimilartyVal, searchResultsIndex);
 //console.log("After sorting:", searchResultsSimilartyVal);
@@ -75,11 +75,12 @@ sortMirrorArr(searchResultsSimilartyVal, searchResultsIndex);
 	for (var i = 0; i < searchResultsIndex.length; i++) {
 		console.log(searchResultsIndex[i]);
 	}*/
-	
-	
+	console.log(searchResultsIndex.length);
 	for(var i = 0; i < searchResultsIndex.length; i++) {
-		if(i >= 1) {
-			$( ".search_result_div_outer" ).clone().appendTo( ".result_show_inner" ).prop('id', 'search_result_' + i);
+		
+		if(i > 0) {
+			$( '#search_result_' + (i - 1)).clone().appendTo( ".result_show_inner" ).prop('id', 'search_result_' + i);
+			
 		}
 		$('#search_result_' + i).children( ".search_result_div" ).children( ".literature_name" ).text(myObj[searchResultsIndex[i]].name);
 		$('#search_result_' + i).children( ".search_result_div" ).children( ".literature_writer" ).text(myObj[searchResultsIndex[i]].writer);
@@ -88,9 +89,10 @@ sortMirrorArr(searchResultsSimilartyVal, searchResultsIndex);
 		$('#search_result_' + i).children( ".search_result_div" ).children( ".literature_subject" ).text(myObj[searchResultsIndex[i]].subject);
 		$('#search_result_' + i).children( ".search_result_div" ).children( ".literature_link" ).text(myObj[searchResultsIndex[i]].link);
 		$('#search_result_' + i).children( ".search_result_div" ).children( ".literature_link" ).attr("href", myObj[searchResultsIndex[i]].link);
-		
+		//console.log($('.search_result_div_outer').length);
 		
 	}
+	
 	
 	if(searchResultsIndex.length) {
 		$(".search_result_div_outer").css('display', 'flex');
@@ -175,7 +177,7 @@ $( document ).ready(function() {
 		
 	
 	index += 8;
-	console.log(url);
+	//console.log(url);
 	
 	while(index < url.length) {
 		if(url[index] == "%") {
@@ -203,7 +205,7 @@ $( document ).ready(function() {
 		}
 		
 	}
-	console.log(search_header_text);
+	//console.log(search_header_text);
 	
 	
 	
