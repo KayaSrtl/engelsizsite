@@ -242,7 +242,7 @@ function beReadyPage () {
 	window_height = parseInt($( window ).height());
 	window_width = parseInt($( window ).width());
 	
-	if(parseInt($( ".result_show_outer" ).height()) < window_height)
+	if(parseInt($( ".result_show_outer" ).height()) > window_height)
 		$(".copy_write").css('position', 'fixed');
 	else
 		$(".copy_write").css('position', 'relative');
