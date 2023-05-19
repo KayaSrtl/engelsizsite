@@ -191,11 +191,11 @@ $( window ).resize(function() {
 	 
 function uploadJSON(json_object) {
   // Update the data as desired
-  const updatedData = {
+  /*const updatedData = {
     someKey: 'çok seviyorum'
-  };
+  };*/
 
-  const token = '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';
+  const token = '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';
   const repoOwner = 'KayaSrtl';
   const repoName = 'engelsizsite';
   const filePath = './panel/panelsayfasi/data.json';
