@@ -55,7 +55,7 @@ html body {
     border: black 22px;
     background: #978d73;
     margin: 5px 0px;
-	display: none;
+	display: flex;
 }
 
 .search_result_div {
@@ -92,6 +92,32 @@ html body {
 
 .book_not_found_txt {
 	text-align: center;
+}
+
+.literature_name {
+	width: 12%;
+}
+
+.literature_writer {
+	width: 12%;
+}
+
+.literature_language {
+	width: 12%;
+}
+
+.literature_format {
+	width: 12%;
+}
+
+.literature_subject {
+	width: 30%;
+	font-size: calc(5px + 0.6vw);
+}
+
+.literature_link {
+	width: 20%;
+	overflow: hidden;
 }
 
 @media (max-width:820px) { 
