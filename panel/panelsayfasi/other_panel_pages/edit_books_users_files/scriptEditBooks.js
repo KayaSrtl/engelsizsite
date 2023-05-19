@@ -6,24 +6,6 @@ var selected_book_index = 1;
 var last_book_index = 10;
 var search_header_text = [];
 
-var Turkish_codes = ["%C3%A7", "%C3%87", "%C3%B6", "%C3%96", "%C5%9F", "%C5%9E", "%C4%B1", "%C4%B0", "%C4%9F", "%C4%9E", "%C3%BC", "%C3%9C", "%27", "%3C", "%3E", "%C2%A3", "%C2%BD", "%C3%A9"];
-var Turkish_chars = ["ç", "Ç", "ö", "Ö", "ş", "Ş", "ı", "İ", "ğ", "Ğ", "ü", "Ü", "'", "<", ">", "£", "½", "é"];
-
-
-//import data from '../panel/panelsayfasi/data.json' assert { type: 'json' };
-//console.log(data);
-
-//../panel/panelsayfasi/data.json
-
-
-var stringsToSearch = [
-  "JavaScript Basics",
-  "Advanced JavaScript Techniques",
-  "Introduction to JavaScript",
-  "JavaScript for Web Development",
-  "JavaScript Frameworks andweb Libraries"
-];
-
 
 
 /*fetch('https://raw.githubusercontent.com/KayaSrtl/engelsizsite/main/panel/panelsayfasi/data.json')
@@ -62,8 +44,8 @@ var stringsToSearch = [
 	
 	
 	for(var i = 0; i < objlen; i++) {
-		if(i >= 1) {
-			$( ".search_result_div_outer" ).clone().appendTo( ".result_show_inner" ).prop('id', 'search_result_' + i);
+		if(i > 0) {
+			$( '#search_result_' + (i - 1)).clone().appendTo( ".result_show_inner" ).prop('id', 'search_result_' + i);
 		}
 		$('#search_result_' + i).children( ".search_result_div" ).children( ".literature_name" ).text(myObj[i].name);
 		$('#search_result_' + i).children( ".search_result_div" ).children( ".literature_writer" ).text(myObj[i].writer);
