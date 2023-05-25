@@ -74,21 +74,27 @@ $( document ).ready(function() {
 	if ( $( "#username" ).first().val() === "correct" ) {
 		$( "span" ).text( "Validated..." ).show();
 	} else
-	 $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+	 $( "span" ).text( "Giriş Yapıldı..." ).show().fadeOut( 1000 );
 	//const usernames = ["admin", "kaya"];
 	//const passwords = ["admin", "kaya123"];
+	//console.log(!!($( "#username" ).first().val()));
 	for(var i = 0; i < usernames.length; i++) {
-		if($( "#username" ).first().val() == usernames[i])
+		if(($( "#username" ).first().val() == usernames[i])) {
+			acc = true;
 			if($( "#password" ).first().val() == passwords[i]) {
 				location.replace("panelsayfasi/panelsayfasi.html");
-				acc = true;
 			} else {
-				alert("wrong password.");
+				//alert("wrong password.");
+				$( "span" ).text( "Yanlış Şifre." ).show();
+				$( "span" ).fadeOut( 1000 );
 				return;
 				}
-	}
+		}
+	} 
 	if(!acc)
-		alert("username not exist.");
+		//alert("username not exist.");
+	//$( "span" ).show();
+				$( "span" ).text( "Bu kullanıcı adı mevcut değil." ).show().fadeOut( 1000 );
 	});
 	
 	
