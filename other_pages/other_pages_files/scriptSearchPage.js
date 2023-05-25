@@ -268,6 +268,7 @@ $( document ).ready(function() {
 }); */
 	
 	$( "#search_name_header" ).text("Arama Sonucu: " + search_header_text);
+	$(document).prop('title', 'Engelsiz Site | Arama: '+ search_header_text);
 	
 	beReadyPage();
 	setTimeout(function() { beReadyPage();}, 100);
