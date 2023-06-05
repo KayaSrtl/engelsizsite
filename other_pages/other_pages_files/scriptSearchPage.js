@@ -26,11 +26,13 @@ var stringsToSearch = [
 
 
 
+
 /*fetch('https://raw.githubusercontent.com/KayaSrtl/engelsizsite/main/panel/panelsayfasi/data.json')
     .then((response) => response.json())
     .then((json) => console.log(json[0]));*/
 
-	fetch('https://raw.githubusercontent.com/KayaSrtl/engelsizsite/main/panel/panelsayfasi/data.json')
+	//fetch('https://raw.githubusercontent.com/KayaSrtl/engelsizsite/main/panel/panelsayfasi/data.json')
+	fetch('https://raw.githubusercontent.com/eylulberil/websitedata/main/data.json')
   .then(response => response.json())
   .then(myObj => {
 	var objlen;
