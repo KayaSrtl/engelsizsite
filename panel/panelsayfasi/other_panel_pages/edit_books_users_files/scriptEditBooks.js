@@ -8,8 +8,9 @@ var search_header_text = [];
 
 var Turkish_codes = ["%C3%A7", "%C3%87", "%C3%B6", "%C3%96", "%C5%9F", "%C5%9E", "%C4%B1", "%C4%B0", "%C4%9F", "%C4%9E", "%C3%BC", "%C3%9C", "%27", "%3C", "%3E", "%C2%A3", "%C2%BD", "%C3%A9"];
 var Turkish_chars = ["ç", "Ç", "ö", "Ö", "ş", "Ş", "ı", "İ", "ğ", "Ğ", "ü", "Ü", "'", "<", ">", "£", "½", "é"];
-const key = "Z2hwX1dNU0o0Y3BTc0s1UU9IZHlkMFoweGhUS2lGQmZIZzNYdEllbA==";
-
+const key = "Z2hwX0dNNXdGdFhYWUlZR2tjOHlPOVZWamloSVJNdjhsZzRKdWQ5Rw==";
+var objlen;
+var globeOBJ;
 //import data from '../panel/panelsayfasi/data.json' assert { type: 'json' };
 //console.log(data);
 
@@ -44,10 +45,11 @@ function decodeString(encodedStr) {
 	fetch('https://raw.githubusercontent.com/KayaSrtl/engelsizsite/main/panel/panelsayfasi/data.json')
   .then(response => response.json())
   .then(myObj => {
-	var objlen;
+
 	//console.log(myObj[1].name);
 	objlen = Object.keys(myObj).length;
 	console.log(objlen);
+	globeOBJ = myObj;
 	var itemcounter = 0, is_pickable = false;
 	index = 0;
 	console.log(myObj[1].name);
@@ -59,17 +61,7 @@ function decodeString(encodedStr) {
 	var searchResultsSimilartyVal = [];
 	
 
-//console.log("After sorting:", searchResultsSimilartyVal);
-//console.log("After sorting:", searchResultsIndex	);
-	
-	//console.log(searchString2("JavaSript", stringsToSearch[0]));
-	
-	
-	
-	/*console.log("Search Results:");
-	for (var i = 0; i < searchResultsIndex.length; i++) {
-		console.log(searchResultsIndex[i]);
-	}*/
+
 	
 	
 	for(var i = 0; i < objlen; i++) {
@@ -93,6 +85,76 @@ function decodeString(encodedStr) {
     // Handle any errors that occur during the fetch request
     console.log('Error:', error);
   });
+
+function addNewBook() {
+
+	if(objlen) {
+		$( '#search_result_' + (objlen - 1)).clone().appendTo( ".result_show_inner" ).prop('id', 'search_result_' + objlen);
+
+	} 
+		$(".search_result_div_outer").css("display", "flex");
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_name" ).attr('contenteditable','true');;
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_name" ).text("EDIT name");
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_writer" ).attr('contenteditable','true');;
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_writer" ).text("EDIT writer");
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_language" ).attr('contenteditable','true');;
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_language" ).text("EDIT language");
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_format" ).attr('contenteditable','true');;
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_format" ).text("EDIT format");
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_subject" ).attr('contenteditable','true');;
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_subject" ).text("EDIT subject");
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_link" ).attr('contenteditable','true');;
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".literature_link" ).text("EDIT link");
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".user_edit" ).children( ".edit_user_button" ).text("Düzenlemeyi Bitir.");
+		objlen++;
+}
+
+function updatelocalJSON(json_object) {
+	var json_temp = {
+                "format": "value1",
+                "writer": "value2",
+                "language": "value3",
+                "format": "value4",
+                "link": "value5",
+                "language": "value6"
+            };
+	console.log(json_object);
+	if(Object.keys(json_object).length > objlen) {
+		/*for(var i = Object.keys(json_object).length - 1; i >= objlen; i--) {
+			//delete json_object[i];
+			json_object.splice(i, 1);
+		}*/
+json_object.splice(objlen, Object.keys(json_object).length-objlen);
+	} else {
+		for(var i = Object.keys(json_object).length; i < objlen; i++) 
+			json_object.push(json_temp);
+	}
+
+	console.log(json_object);
+	for(var i = 0; i < objlen; i++) {
+		json_object[i].name = $('#search_result_' + i).children( ".search_result_div" ).children( ".literature_name" ).text();
+		json_object[i].writer = $('#search_result_' + i).children( ".search_result_div" ).children( ".literature_writer" ).text();
+		json_object[i].language = $('#search_result_' + i).children( ".search_result_div" ).children( ".literature_language" ).text();
+		json_object[i].format = $('#search_result_' + i).children( ".search_result_div" ).children( ".literature_format" ).text();
+		json_object[i].subject = $('#search_result_' + i).children( ".search_result_div" ).children( ".literature_subject" ).text();
+		json_object[i].link = $('#search_result_' + i).children( ".search_result_div" ).children( ".literature_link" ).text();
+		
+		//globeOBJ[i] = json_temp;
+		//console.log(json_object);
+		//console.log($('#search_result_' + i).children( ".search_result_div" ).children( ".user_username" ).text());
+		
+	}
+	
+	return json_object;
+}
+
+function submitUpdates() {
+	globeOBJ = updatelocalJSON(globeOBJ);
+	
+	
+	console.log(globeOBJ);
+	//uploadJSON(globeOBJ);
+}
 
 
 function searchString2(searchTerm, strings) {
@@ -158,7 +220,62 @@ $( document ).ready(function() {
 		location.replace("../../panelgiris.html");
 	});
 	
+	$(".remove_edit_button").click(function(){
+	    var value = $('#editablediv').attr('contenteditable');
+
+		if (value == 'false') {
+			$('#editablediv').attr('contenteditable','true');
+		}
+		else {
+			$('#editablediv').attr('contenteditable','false');
+		}
+		$('#search_result_' + objlen).children( ".search_result_div" ).children( ".editable_info" ).attr('contenteditable','true');
+	});
 	
+	
+	$(document).on("focusin", ".editable_info", function (ev) {
+		if($( this ).attr('contenteditable') == "true") {
+			textstrtemp = $(this).text();
+			$(this).text("");
+		}
+
+	});
+	
+	$(document).on("focusout", ".editable_info", function (ev) {
+		if($( this ).attr('contenteditable') == "true") {
+			if($(this).text() == "")
+				$(this).text(textstrtemp);
+		}
+	});
+	
+	$(document).on("click", ".edit_user_button", function (ev) {
+		if($(this).text() == "Düzenle") {
+			$(this).text("Düzenlemeyi Bitir.");
+			$(this).parent(".user_edit").parent(".search_result_div").children( ".editable_info" ).attr('contenteditable','true');
+			//console.log($(this).parent(".user_edit").parent(".search_result_div").children( ".editable_info" ).attr('contenteditable') == "true");
+		} else {
+			$(this).text("Düzenle");
+			$(this).parent(".user_edit").parent(".search_result_div").children( ".editable_info" ).attr('contenteditable','false');
+		}
+	});
+	
+	$(document).on("click", ".remove_user_button", function (ev) {
+		var id = $(this).parent(".user_edit").parent(".search_result_div").parent(".search_result_div_outer").attr('id');
+		console.log(id.slice(14, 15));
+		if(objlen > 1) {
+			$(this).parent(".user_edit").parent(".search_result_div").parent(".search_result_div_outer").remove();
+			objlen--;
+		} else if(objlen == 1) {
+			$(this).parent(".user_edit").parent(".search_result_div").parent(".search_result_div_outer").css("display", "none");
+			objlen--;
+		}
+		
+		for(var i = parseInt(id.slice(14, 15)) + 1; i <= objlen; i++) {
+			$( '#search_result_' + i).prop('id', 'search_result_' + (i - 1));
+			//console.log(i);
+		}
+		
+	});
 	
 	//%C3%A7%C3%87%C3%B6%C3%96%C5%9F%C5%9E%C4%B1%C4%B0%C4%9F%C4%9E%C3%BC%C3%9C
 	//çÇöÖşŞıİğĞüÜ
@@ -281,9 +398,9 @@ function uploadJSON(json_object) {
 
   //const token = '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';
   var token = decodeString(key);
-  const repoOwner = 'KayaSrtl';
-  const repoName = 'engelsizsite';
-  const filePath = './panel/panelsayfasi/data.json';
+  const repoOwner = 'eylulberil';
+  const repoName = 'websitedata';
+  const filePath = './users.json';
 
   // Convert the updated data to JSON
   const updatedJsonData = JSON.stringify(json_object, null, 2);
@@ -338,67 +455,4 @@ function uploadJSON(json_object) {
     .catch((error) => {
       console.error('Error updating JSON file:', error.message);
     });
-}
-
-
-
-
-var token = decodeString(key);
-const repoOwner = 'KayaSrtl';
-const repoName = 'engelsizsite';
-const filePath = 'deneme/denemee.json';
-
-
-// API endpoint for deleting a file
-const deleteFileEndpoint = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
-
-async function getFileSHA() {
-  try {
-    const response = await fetch(deleteFileEndpoint, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'User-Agent': 'GetFileSHA'
-      }
-    });
-
-    if (response.ok) {
-      const fileData = await response.json();
-      return fileData.sha;
-    } else {
-      throw new Error(`Error getting file SHA: ${response.status} ${response.statusText}`);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Delete file function
-async function deleteFile() {
-  try {
-    const fileSHA = await getFileSHA();
-
-    const response = await fetch(deleteFileEndpoint, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'User-Agent': 'DeleteFile'
-      },
-      body: JSON.stringify({
-        message: 'Delete file',
-        sha: fileSHA
-      })
-    });
-
-    if (response.ok) {
-      console.log('File deleted successfully');
-    } else {
-      const errorData = await response.json();
-      throw new Error(`Error deleting file: ${errorData.message}`);
-    }
-  } catch (error) {
-    console.error(error);
-  }
 }
