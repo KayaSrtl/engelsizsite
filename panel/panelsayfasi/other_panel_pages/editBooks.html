@@ -111,7 +111,7 @@
 </div>
 
 <div class="result_show_outer">
-<h1 class="search_name_header" id="search_name_header">Kitap Ekle Çıkar..</h1>
+<div style="display: flex;justify-content: space-around;align-items: center;"><h1 class="search_name_header" id="search_name_header">Kitap Ekle Çıkar..</h1><button onclick="submitUpdates()">Güncellemeleri Onayla</button><button onclick="addNewBook()">Yeni Kitap Ekle</button></div>
 <div class="result_show_inner">
 <div class="categoies">
 <div class="search_result_div">
@@ -120,29 +120,35 @@
 <div class="literature_info literature_language">KİTAP DİLİ</div>
 <div class="literature_info literature_format">KİTAP TÜRÜ</div>
 <div class="literature_info literature_subject">KİTABIN KONUSU</div>
-<a class="literature_info literature_link" target="_blank">KİTABIN BAĞLANTISI</a>
+<div class="literature_info literature_link" target="_blank">KİTABIN BAĞLANTISI</div>
+	<div class="literature_info user_remove_or_edit">ÇIKAR / DÜZENLE</div>
 
 </div>
 </div>
 
 <div class="search_result_div_outer" id="search_result_0">
 <div class="search_result_div">
-<div class="literature_info literature_name">name</div>
-<div class="literature_info literature_writer">writer</div>
-<div class="literature_info literature_language">language</div>
-<div class="literature_info literature_format">format</div>
-<div class="literature_info literature_subject">subject</div>
-<a class="literature_info literature_link" target="_blank">link</a>
+<div class="literature_info editable_info literature_name">name</div>
+<div class="literature_info editable_info literature_writer">writer</div>
+<div class="literature_info editable_info literature_language">language</div>
+<div class="literature_info editable_info literature_format">format</div>
+<div class="literature_info editable_info literature_subject">subject</div>
+<a class="literature_info editable_info literature_link" target="_blank">link</a>
+	<div class="literature_info user_edit"><button class="user_remove_or_edit_btn remove_user_button">Kaldır</button><p> ya da </p><button class="user_remove_or_edit_btn edit_user_button">Düzenle</button></div>
+	
 
 </div>
 </div>
 
 
 </div>
-</div>
 
-<div class="copy_write">
+</div>
+	<div class="copy_write">
 <h3>Tüm hakları saklıdır.</h3>
 </div>
+</div>
+
+
 </body>
 </html>
