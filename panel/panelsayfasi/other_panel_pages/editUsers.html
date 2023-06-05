@@ -1,5 +1,5 @@
-<!-- Copyright 2023 Rockie Inc. All Rights Reserved.  -->
 <!DOCTYPE html>
+<!-- Copyright 2023 Rockie Inc. All Rights Reserved.  -->
 <html  lang="tr" dir="ltr" data-cast-api-enabled="true">
 <head>
 <title>Kullanıcı Ekle Çıkar</title>
@@ -82,7 +82,7 @@
 </div>
 <div class="cover_page"></div>
 </noscript>
-<link href='https://fonts.googleapis.com/css?family=Atkinson Hyperlegible|Bebas Neue|Montserrat' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css?family=Atkinson Hyperlegible|Bebas Neue|Montserrat" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css" crossorigin="anonymous">
@@ -96,7 +96,8 @@
 <!--<link rel="stylesheet/less" type="text/css" href="styles.less" />
 <script src="https://cdn.jsdelivr.net/npm/less@4.1.1" ></script>-->
 <link rel="stylesheet" href="./edit_books_users_files/styleEditUsers.css">
-
+<script src="../other_panel_pages/excel_files/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -112,7 +113,7 @@
 </div>
 
 <div class="result_show_outer">
-<h1 class="search_name_header" id="search_name_header">Kullanıcı Ekle Çıkar..</h1>
+<div style="display: flex;justify-content: space-around;align-items: center;"><h1 class="search_name_header" id="search_name_header">Kullanıcı Ekle Çıkar..</h1><button onclick="submitUpdates()">Güncellemeleri Onayla</button><button onclick="addNewUser()">Yeni Kullanıcı Ekle</button></div>
 <div class="result_show_inner">
 <div class="categoies">
 <div class="search_result_div">
@@ -126,21 +127,23 @@
 
 <div class="search_result_div_outer" id="search_result_0">
 <div class="search_result_div">
-<div class="literature_info user_username">username</div>
-<div class="literature_info user_password">password</div>
-<div class="literature_info user_permission_degree">permission degree</div>
-<div class="literature_info user_permission_degree"><button class="user_remove_or_edit" onlick="">Kaldır</button><p> ya da </p><button class="user_remove_or_edit" href="">Düzenle</button></div>
+<div class="literature_info editable_info user_username">username</div>
+<div class="literature_info editable_info user_password">password</div>
+<div class="literature_info editable_info user_permission_degree">permission degree</div>
+<div class="literature_info user_edit"><button class="user_remove_or_edit_btn remove_user_button">Kaldır</button><p> ya da </p><button class="user_remove_or_edit_btn edit_user_button" id="">Düzenle</button></div>
 
 </div>
 </div>
 
 
 </div>
-<button onclick="submit_updates">Güncellemeleri Onayla</button>
-</div>
 
-<div class="copy_write">
+</div>
+	<div class="copy_write">
 <h3>Tüm hakları saklıdır.</h3>
 </div>
+</div>
+
+
 </body>
 </html>
