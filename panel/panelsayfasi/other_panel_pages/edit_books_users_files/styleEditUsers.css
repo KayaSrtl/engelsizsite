@@ -38,6 +38,7 @@ html body {
 	height: 100vh;
     align-items: center;
 	flex-direction: column;
+	    justify-content: space-between;
 }
 
 .result_show_outer {
@@ -66,7 +67,7 @@ html body {
 }
 
 .literature_info  {
-	width: 16.67%;
+	width: 25%;
 	display: flex;
 	align-items: center;
     justify-content: center;
