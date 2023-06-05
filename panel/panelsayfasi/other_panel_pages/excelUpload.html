@@ -81,7 +81,7 @@
 </div>
 <div class="cover_page"></div>
 </noscript>
-<link href='https://fonts.googleapis.com/css?family=Atkinson Hyperlegible|Bebas Neue|Montserrat' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css?family=Atkinson Hyperlegible|Bebas Neue|Montserrat" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css" crossorigin="anonymous">
@@ -96,26 +96,27 @@
 <link rel="stylesheet" href="./excel_files/styleExcelUpload.css">
 	<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+<script src="./excel_files/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
 <!--source code-->
 
 <!--https://stackoverflow.com/questions/8238407/how-to-parse-excel-xls-file-in-javascript-html5-->
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
-<script src="./node_modules/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
 <body>
 	  <div class="main_div">
 
 		<div class="top_div">
-			<button id="logout" class="logout_btn">Çıkış Yap</button>
+			<button href="../panelsayfasi.html">Ana Panel Sayfası</button>
 
 			<p class="top_text">Görme engellilere hizmet veren kütüphanelerin ortak portalı genkutup.org</p>
-			<div></div>
+			<button id="logout" class="logout_btn">Çıkış Yap</button>
 		</div>
 		
 		
@@ -123,11 +124,11 @@
 			<div class="main_part_outer">
 				<div class="main_part_inner">
 					<form enctype="multipart/form-data">
-							<input id="upload" type=file name="files[]">
+							<input id="upload" type="file" name="files[]">
 						</form>
 					<div class="drag_drop_zone" id="drop-zone">Sürükle bırak alanı</div>
 					<!--<textarea class="form-control" rows=35 cols=120 id="xlx_json"></textarea>-->
-					
+					<button onclick="uploadJson()">Dosyayı Yükle</button>
 				</div>
 			</div>
 			
