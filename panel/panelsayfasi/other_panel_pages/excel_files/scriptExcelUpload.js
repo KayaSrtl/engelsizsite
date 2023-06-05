@@ -1,10 +1,10 @@
 var window_height, window_width;
-var ismenuopen = false;
 var is_mobile_phone = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) ? true : false;
 var selected_book_index = 1;
 
 var json_object;
-
+var is_upload_ready = false;
+const key = "Z2hwX0dNNXdGdFhYWUlZR2tjOHlPOVZWamloSVJNdjhsZzRKdWQ5Rw==";
 
 
   var ExcelToJSON = function() {
@@ -24,7 +24,9 @@ var json_object;
           //console.log(JSON.parse(json_object));
 		  //console.log(json_object);
           //jQuery('#xlx_json').val(json_object);
-		  uploadJson(json_object);
+			
+		  //uploadJson(0);
+			is_upload_ready = true;
         })
       };
 
@@ -53,17 +55,38 @@ var json_object;
     }
 
 
-function uploadJson(json_object) {
-	console.log(json_object);
-	//deleteFile();
-	setTimeout(function() {
-    uploadJSON(json_object);
-}, 500);
-	//uploadJSON();
+function uploadJson() {
+	if(is_upload_ready) {
+		console.log(json_object);
+		uploadJSON(json_object);
+	} else {
+		console.log("öncelikle dosya yükleyin.");
+	}
 	
+	//deleteFile();
+	
+	/*setTimeout(function() {
+    
+}, 500);*/
+	//uploadJSON();
 }
 
+/*var encodedString = encodeString(myString);
+console.log(encodedString);
+
+
+encodedString = decodeString(encodedString);
+
+console.log(encodedString);
+
+function encodeString(str) {
+  return btoa(str);
+}*/
   
+  
+function decodeString(encodedStr) {
+  return atob(encodedStr);
+}
   
 $( document ).ready(function() {
 	
@@ -104,10 +127,12 @@ $( document ).ready(function() {
 
     function highlight() {
       document.getElementById('drop-zone').style.backgroundColor = '#e1e7f0';
+      document.getElementById('drop-zone').style.color = '#111';
     }
 
     function unhighlight() {
       document.getElementById('drop-zone').style.backgroundColor = '';
+      document.getElementById('drop-zone').style.color = '';
     }
 
     function handleDrop(e) {
@@ -141,8 +166,8 @@ function handleFiles(files) {
         result.push(obj);
       }
 		json_object = JSON.stringify(result);
-      uploadJson(json_object);
-
+     // uploadJson(json_object);
+		is_upload_ready = true;
       // Here, you can perform further actions with the modified JSON data, such as sending it to a server or processing it in some way.
     };
 
@@ -195,10 +220,11 @@ function uploadJSON(json_object) {
     someKey: 'çok seviyorum'
   };*/
 
-  const token = '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';
-  const repoOwner = 'KayaSrtl';
-  const repoName = 'engelsizsite';
-  const filePath = './panel/panelsayfasi/data.json';
+  //const token = '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';
+  var token = decodeString(key);
+  const repoOwner = 'eylulberil';
+  const repoName = 'websitedata';
+  const filePath = './data.json';
 
   // Convert the updated data to JSON
   const updatedJsonData = JSON.stringify(json_object, null, 2);
@@ -258,10 +284,10 @@ function uploadJSON(json_object) {
 
 
 
-const token = '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';
-const repoOwner = 'KayaSrtl';
-const repoName = 'engelsizsite';
-const filePath = 'deneme/denemee.json';
+var token = decodeString(key);
+  const repoOwner = 'eylulberil';
+  const repoName = 'websitedata';
+  const filePath = './data.json';
 
 
 // API endpoint for deleting a file
@@ -317,5 +343,3 @@ async function deleteFile() {
     console.error(error);
   }
 }
-
-// Call the deleteFile function
