@@ -8,7 +8,7 @@ var search_header_text = [];
 
 var Turkish_codes = ["%C3%A7", "%C3%87", "%C3%B6", "%C3%96", "%C5%9F", "%C5%9E", "%C4%B1", "%C4%B0", "%C4%9F", "%C4%9E", "%C3%BC", "%C3%9C", "%27", "%3C", "%3E", "%C2%A3", "%C2%BD", "%C3%A9"];
 var Turkish_chars = ["ç", "Ç", "ö", "Ö", "ş", "Ş", "ı", "İ", "ğ", "Ğ", "ü", "Ü", "'", "<", ">", "£", "½", "é"];
-const key = "Z2hwX0dNNXdGdFhYWUlZR2tjOHlPOVZWamloSVJNdjhsZzRKdWQ5Rw==";
+const key = "Z2hwX1UwcTRPR2xWbGtZcmsyQnNZYndHWnhJSVczRVBhcDBkVXpEaQ==";
 var objlen;
 var globeOBJ;
 //import data from '../panel/panelsayfasi/data.json' assert { type: 'json' };
